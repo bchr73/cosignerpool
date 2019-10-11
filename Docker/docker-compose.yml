@@ -39,18 +39,12 @@ services:
         depends_on:
             - certbot
         command: /bin/sh -c /app/entrypoint.sh
-    certbot:
-        image: certbot/certbot
+    openssl:
+        build:
+            dockerfile: $PWD/OpenSSL/Dockerfile
         volumes:
-            - "./Certbot/entrypoint.sh:/app/entrypoint.sh"
-            - "certbot-etc:/etc/letsencrypt"
-            - "certbot-var:/var/lib/letsencrypt"
-            - "web-root:/var/www/html"
-        environment:
-            - CONTACT_EMAIL=$contactEmail
-            - CERT_DOMAINS=$certDomains
-        depends_on:
-            - nginx
+            - "./OpenSSL/entrypoint.sh:/app/entrypoint.sh"
+            - "openssl-etc:/etc/certs"
         entrypoint: /bin/sh -c /app/entrypoint.sh
 volumes:
         certbot-etc:
