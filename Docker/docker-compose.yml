@@ -41,6 +41,7 @@ services:
         command: /bin/sh -c /app/entrypoint.sh
     openssl:
         build:
+            context: $PWD/OpenSSL
             dockerfile: $PWD/OpenSSL/Dockerfile
         volumes:
             - "./OpenSSL/entrypoint.sh:/app/entrypoint.sh"
